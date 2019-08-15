@@ -1,0 +1,65 @@
+Autor: Roberto Olavarria
+Descripción: Candidato para Falabella postulando al cargo de Ingeniero en Software.
+
+
+Herramientas utilizadas: 
+- Java 1.8
+- Spring Core
+- Spring Boot
+- Spring Data
+- Spring Web
+- JPA
+- H2 DataBase
+- Mockito
+- JUnit
+- Maven
+- Jacoco
+
+Reseña de Código:
+
+Para realizar esta prueba me base en mis conocimientos en Spring y utilice varios modulos de este framework para intentar lograr una prueba
+exitosa y a mi criterio bien diseñada para el problema propuesto.
+
+Utilice Spring para hacer uso de su Container y también las bondades de SpringBoot en la configuración, en cuanto a conexiones a BD y manejo de 
+datos, decidi tomar el módulo de Spring Data y configurarlo en conjunto con JPA, logrando abstraerme de crear un CRUD y con esto
+automatizando las operaciones básicas contra una base de datos.
+
+A través de SpringBoot realizo las configuraciones del datasource y configuraciones básicas de JPA para levantar una base de datos H2 en 
+memoria, la cual estará trabajando mientras el servidor este UP.
+
+Una vez configurado el manejo de datos y la BD, me dediqué a configurar los servicios que debian exponerse, esto, a través de controllers 
+manejados por Spring.
+
+Procuré seguir paso a paso el indicativo en el .YAML entregado, por ende configure cada servicio para entregar un HttpStatus apropiado y 
+su respectivo mensaje deseado, para casos especiales, force la aplicación a retornar excepciones con el proposito de cubrir
+todos los escenarios propuestos en el desafio, este manejo de excepciones está declarado en el mismo controlador y las excepciones elegidas 
+para cada escenario son de tipo: ConstraintViolationException - PersistentObjectException.
+
+El código tiene una cobertura aproximada del 90% segun el framework Jacoco, esto fue logrado a través de Test Unitarios mockeando las 
+conexiones a los servicios expuestos, cada test tomó como criterio de aceptación el code status y mensaje esperado de retorno.
+
+
+Comandos útiles:
+
+• Para ejecutar los test y revisar el informe entregado por Jacoco relacionado con la cobertura de código, favor ejecutar:
+
+- mvn clean test 
+
+Una vez termine de compilar y ejecutar los test se creara la ruta ~/target/report-jacoco, dentro de esta ruta hay un archivo index.html
+favor abrirlo con su navegador, este archivo contiene todo el reporte de cobertura analizado por este framework y muestra en detalle toda la 
+cobertura obtenida desde los test.
+
+
+• Para generar el jar y levantar la aplicación para testeo en navegador o herramienta web, favor ejecutar:
+
+-  mvn package -Dmaven.test.skip=true
+-  java -jar target/BeerFalabellaTest-0.0.1-SNAPSHOT.jar
+
+Con esto generamos el .jar obviando los test que ya vimos en el punto pasado, luego se ejecuta el .jar lo que levantara un servidor web
+utilizando el Tomcat embebido que brinda SpringBoot, el puerto será 8080 (por defecto) y la url debiese ser:
+
+- http://localhost:8080/ (home)
+- http://localhost:8080/beers (api)
+
+Sin más que agregar, espero cumplir sus expectativas con esta solución :)
+
